@@ -7,8 +7,12 @@ SITE = "https://zefame.com/en/free-instagram-views"
 def run_cycle():
     with sync_playwright() as p:
         browser = p.chromium.connect_over_cdp("http://localhost:9222")
-        context = browser.contexts[0]
-        page = context.pages[0]
+
+        # Fallback: agar contexts empty hain to naya context banao
+        context = browser.contexts[0] if browser.contexts else browser.new_context()
+
+        # Fallback: agar pages empty hain to naya page banao
+        page = context.pages[0] if context.pages else context.new_page()
 
         page.goto(SITE)
         page.wait_for_selector("#instagram-link", timeout=20000)
