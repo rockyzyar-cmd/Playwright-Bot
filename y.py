@@ -1,5 +1,6 @@
 from playwright.sync_api import sync_playwright
 import time
+import sys
 
 LINK = "https://www.instagram.com/reel/DWN9X_gD3bH/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
 SITE = "https://zefame.com/en/free-instagram-views"
@@ -19,16 +20,16 @@ def run_cycle():
         page.fill("#instagram-link", LINK)
         page.click("#submit-btn", force=True)
 
-        print("✅ Cycle complete — link submitted.")
+        print("✅ Cycle complete — link submitted.", flush=True)
 
 if __name__ == "__main__":
     while True:
         run_cycle()
-        print("⏳ Waiting 400 seconds...")
+        print("⏳ Waiting 400 seconds...", flush=True)
 
         # Counter loop
         for i in range(1, 400):   # 1 se 400 tak
-            print(i)
-            time.sleep(1)        # har second pe print hoga
+            print(i, flush=True)   # force log flush for GitHub Actions
+            time.sleep(1)          # har second pe print hoga
 
         # Fir cycle repeat ho jaayega
