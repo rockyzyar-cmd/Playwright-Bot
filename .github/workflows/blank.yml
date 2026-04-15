@@ -1,8 +1,16 @@
+name: Playwright Bot
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # har 10 minute run hoga
+  workflow_dispatch:
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
