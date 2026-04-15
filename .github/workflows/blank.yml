@@ -1,4 +1,4 @@
-name: Playwright Bot
+name: Playwright Bot (CDP)
 
 on:
   schedule:
@@ -24,6 +24,11 @@ jobs:
         run: |
           pip install -r requirements.txt
           playwright install
+
+      - name: Start Chrome with CDP
+        run: |
+          google-chrome --remote-debugging-port=9222 --headless --no-sandbox &
+          sleep 5   # wait for Chrome to be ready
 
       - name: Run script
         run: |
