@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright
 import time
-import sys
 
 LINK = "https://www.instagram.com/reel/DWN9X_gD3bH/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
 SITE = "https://zefame.com/en/free-instagram-views"
@@ -8,12 +7,8 @@ SITE = "https://zefame.com/en/free-instagram-views"
 def run_cycle():
     with sync_playwright() as p:
         browser = p.chromium.connect_over_cdp("http://localhost:9222")
-
-        # Fallback: agar contexts empty hain to naya context banao
-        context = browser.contexts[0] if browser.contexts else browser.new_context()
-
-        # Fallback: agar pages empty hain to naya page banao
-        page = context.pages[0] if context.pages else context.new_page()
+        context = browser.contexts[0]
+        page = context.pages[0]
 
         page.goto(SITE)
         page.wait_for_selector("#instagram-link", timeout=20000)
