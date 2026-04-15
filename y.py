@@ -1,0 +1,30 @@
+from playwright.sync_api import sync_playwright
+import time
+
+LINK = "https://www.instagram.com/reel/DWN9X_gD3bH/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+SITE = "https://zefame.com/en/free-instagram-views"
+
+def run_cycle():
+    with sync_playwright() as p:
+        browser = p.chromium.connect_over_cdp("http://localhost:9222")
+        context = browser.contexts[0]
+        page = context.pages[0]
+
+        page.goto(SITE)
+        page.wait_for_selector("#instagram-link", timeout=20000)
+        page.fill("#instagram-link", LINK)
+        page.click("#submit-btn", force=True)
+
+        print("✅ Cycle complete — link submitted.")
+
+if __name__ == "__main__":
+    while True:
+        run_cycle()
+        print("⏳ Waiting 400 seconds...")
+
+        # Counter loop
+        for i in range(1, 400):   # 1 se 400 tak
+            print(i)
+            time.sleep(1)        # har second pe print hoga
+
+        # Fir cycle repeat ho jaayega
